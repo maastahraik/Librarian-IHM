@@ -1,5 +1,88 @@
 <div>
+    <p-dropdown [options]="authorList" [(ngModel)]="author" placeholder="Author" [style]="{'width':'150px'}"></p-dropdown>
+
+
+
+
+    <p-dropdown [options]="cars" [(ngModel)]="selectedCar" [style]="{'width':'150px'}">
+    <template let-car pTemplate="item">
+        <div class="ui-helper-clearfix" style="position: relative;height: 25px;">
+            <div style="font-size:14px;float:right;margin-top:4px">{{car.label}}</div>
+        </div>
+    </template>
+</p-dropdown>
+
+
     <h1>Librarian</h1>
     <menu-librarian></menu-librarian>
-    <book-view></book-view>
+    <hr>
+    <h1>Add Author</h1>
+    <form>    
+        <div class="form-group">
+            <label for="firstname"  id="firstname">First name</label>
+            <input type="text" [(ngModel)]="newAuthor.firstname" name="firstname"/>
+        </div>   
+        <div class="form-group">
+            <label for="lastname"  id="lastname">Last name</label>
+            <input type="text" [(ngModel)]="newAuthor.lastname" name="lastname"/>
+        </div>   
+        <div class="form-group">
+            <label for="nation"  id="nation">Nation</label>
+            <input type="text" [(ngModel)]="newAuthor.nation" name="nation"/>
+        </div>   
+        <div class="form-group">
+            <label for="alive"  id="alive">Alive</label>
+            <input type="text" [(ngModel)]="newAuthor.alive" name="alive"/>
+        </div>    
+        <button (click)="addAuthor()" pButton type="button" label="Click" class="ui-button-secondary"></button>
+    </form> 
+    <hr>
+    <h1>Add Book</h1>
+    <form>    
+        <div class="form-group">
+            <label for="title"  id="isbn">ISBN</label>
+            <input type="text" [(ngModel)]="newBook.isbn" name="isbn"/>
+        </div>
+        <div class="form-group">
+            <label for="title" id="title">Title</label>
+            <input type="text"  [(ngModel)]="newBook.title" name="title" placeholder="Title" pInputText  class="form-control"/>
+        </div>
+        <div class="form-group">
+            <label for="author" id="author">Author</label>
+            <input type="text"  [(ngModel)]="newBook.authorReference" name="authorReference" placeholder="AuthorReference" pInputText  class="form-control"/>
+        </div>
+        <div class="form-group">
+            <label for="year" id="year">Year</label>
+            <input [(ngModel)]="newBook.year" name="year" placeholder="year"/>
+        </div>
+        <div class="form-group">
+            <label for="category" id="category">Category</label>
+            <input type="text" [(ngModel)]="newBook.category" name="category" placeholder="Category" pInputText  class="form-control"/>
+        </div>
+        <div class="form-group">
+            <label for="language" id="language">Language</label>
+            <input type="text" [(ngModel)]="newBook.language" name="language" placeholder="Language" pInputText  class="form-control"/>
+        </div>        
+        <button (click)="addBook()" pButton type="button" label="Click" class="ui-button-secondary"></button>
+    </form> 
+    
+
+<p-dataTable [value]="authorList" [resizableColumns]="true">
+    <p-column sortable="true" field="uuid" header="Identifier"></p-column>
+    <p-column sortable="true" field="firstname" header="First Name"></p-column>
+    <p-column sortable="true" field="lastname" header="Last Name"></p-column>
+    <p-column sortable="true" field="nation" header="Nation"></p-column>
+    <p-column sortable="true" field="alive" header="Alive"></p-column>
+</p-dataTable>
+    
+    <hr>
+
+    <h1>Book List</h1>
+    
+<p-dataTable [value]="bookList" [resizableColumns]="true">
+    <p-column sortable="true" field="isbn" header="ISBN"></p-column>
+    <p-column sortable="true" field="title" header="Title"></p-column>
+    <p-column sortable="true" field="author.firstname author.lastname" header="Author"></p-column>
+    <p-column sortable="true" field="category" header="Category"></p-column>
+</p-dataTable>
 </div>

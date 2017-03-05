@@ -7,6 +7,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+require("rxjs/add/operator/toPromise");
+require("rxjs/add/operator/map");
 var BookComponent = (function () {
     function BookComponent() {
     }
