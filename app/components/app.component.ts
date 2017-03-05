@@ -14,69 +14,80 @@ import 'rxjs/add/operator/map';
 export class AppComponent  implements OnInit{
 
     private urlRef:String = "http://localhost:8080/Librarian-1.0/ws/";
-
     public selectedAuthor: String;
+    public referenceToFind: String;
+
     public book: Book;
     public newBook: Book;
     public bookList: Array<Book>;
+    public booksFound: Array<Book>;
 
     public author: Author;
     public newAuthor: Author;
     public authorList: Array<Author>;
 
+    public checked:Boolean;
+
     public constructor (private http: Http){ 
     this.bookList = new Array<Book>();
+    this.booksFound = new Array<Book>();
     this.book = new Book();
     this.newBook = new Book();
     this.authorList = new Array<Author>();
     this.author = new Author();
     this.newAuthor = new Author();
-}
+    }
 
-  ngOnInit(){
-    this.http.get(this.urlRef+"book")
+    ngOnInit(){
+        this.http.get(this.urlRef+"book")
               .toPromise()
               .then(response => this.bookList = response.json() as Array<Book>);
               console.log(this.bookList);
 
-    this.http.get(this.urlRef+"author")
+        this.http.get(this.urlRef+"author")
               .toPromise()
               .then(reponse => this.authorList = reponse.json() as Array<Author>);
               console.log(this.authorList);
-  }
+    }
 
-  public getBooks(bookList:Array<Book>){
+    public getBooks(bookList:Array<Book>){
     
         this.http.get(this.urlRef+"book")
               .toPromise()
               .then(reponse => bookList = reponse.json() as Array<Book>);
               console.log("méthode getBooks");
-}
+    }
 
-  public getAuthors(authorList:Array<Author>){
+    public getBook(booksFound:Array<Book>){
+        this.http.get(this.urlRef+"book/"+this.referenceToFind)
+        .toPromise().then(response => booksFound = response.json() as Array<Book>);
+    }
+
+    public addBook():void{
+
+            this.http.post(this.urlRef+"book", 
+                JSON.stringify(this.newBook), { headers: new Headers({'Content-Type':'application/json'})})
+                .toPromise()
+                .then(() => console.log("Added !"+this.newBook));
+    }
+
+
+    public getAuthors(authorList:Array<Author>){
     
         this.http.get(this.urlRef+"author")
               .toPromise()
               .then(reponse => authorList = reponse.json() as Array<Author>);
               console.log("méthode getAuthors");
-}
-
-public addBook():void{
-
-        this.http.post(this.urlRef+"book", 
-            JSON.stringify(this.newBook), { headers: new Headers({'Content-Type':'application/json'})})
-            .toPromise()
-            .then(() => console.log("Added !"+this.newBook));
-}
+    }   
 
 
-
-public addAuthor():void{
+    public addAuthor():void{
+        this.newAuthor.alive = this.checked;
 
         this.http.post(this.urlRef+"author", 
             JSON.stringify(this.newAuthor), { headers: new Headers({'Content-Type':'application/json'})})
             .toPromise()
-            .then(() => console.log("Added !"+this.newAuthor.firstName+" "+this.newAuthor.lastName));
-}
+            .then(() => console.log("Added !"+JSON.stringify(this.newAuthor)));
+    }   
 
 }

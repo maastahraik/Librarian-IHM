@@ -20,6 +20,7 @@ var AppComponent = (function () {
         this.http = http;
         this.urlRef = "http://localhost:8080/Librarian-1.0/ws/";
         this.bookList = new Array();
+        this.booksFound = new Array();
         this.book = new book_1.Book();
         this.newBook = new book_1.Book();
         this.authorList = new Array();
@@ -43,11 +44,9 @@ var AppComponent = (function () {
             .then(function (reponse) { return bookList = reponse.json(); });
         console.log("méthode getBooks");
     };
-    AppComponent.prototype.getAuthors = function (authorList) {
-        this.http.get(this.urlRef + "author")
-            .toPromise()
-            .then(function (reponse) { return authorList = reponse.json(); });
-        console.log("méthode getAuthors");
+    AppComponent.prototype.getBook = function (booksFound) {
+        this.http.get(this.urlRef + "book/" + this.referenceToFind)
+            .toPromise().then(function (response) { return booksFound = response.json(); });
     };
     AppComponent.prototype.addBook = function () {
         var _this = this;
@@ -55,11 +54,18 @@ var AppComponent = (function () {
             .toPromise()
             .then(function () { return console.log("Added !" + _this.newBook); });
     };
+    AppComponent.prototype.getAuthors = function (authorList) {
+        this.http.get(this.urlRef + "author")
+            .toPromise()
+            .then(function (reponse) { return authorList = reponse.json(); });
+        console.log("méthode getAuthors");
+    };
     AppComponent.prototype.addAuthor = function () {
         var _this = this;
+        this.newAuthor.alive = this.checked;
         this.http.post(this.urlRef + "author", JSON.stringify(this.newAuthor), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) })
             .toPromise()
-            .then(function () { return console.log("Added !" + _this.newAuthor.firstName + " " + _this.newAuthor.lastName); });
+            .then(function () { return console.log("Added !" + JSON.stringify(_this.newAuthor)); });
     };
     return AppComponent;
 }());

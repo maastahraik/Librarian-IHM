@@ -32,10 +32,19 @@
         </div>   
         <div class="form-group">
             <label for="alive"  id="alive">Alive</label>
-            <input type="text" [(ngModel)]="newAuthor.alive" name="alive"/>
+            <p-inputSwitch onLabel="Yes" offLabel="No" [(ngModel)]="checked" name="alive" (input)="newAuthor.alive = $event.target.value"></p-inputSwitch>
         </div>    
         <button (click)="addAuthor()" pButton type="button" label="Click" class="ui-button-secondary"></button>
     </form> 
+    <hr>
+    <h1>Book search</h1>
+
+    <form>
+        <input type="text" [(ngModel)]="referenceToFind" name="referenceToFind"/>
+        <button (click)="getBook()" pButton type="button" label="Search" class="ui-button-secondary"></button>
+    </form>
+
+
     <hr>
     <h1>Add Book</h1>
     <form>    
@@ -82,7 +91,7 @@
 <p-dataTable [value]="bookList" [resizableColumns]="true">
     <p-column sortable="true" field="isbn" header="ISBN"></p-column>
     <p-column sortable="true" field="title" header="Title"></p-column>
-    <p-column sortable="true" field="author.firstname author.lastname" header="Author"></p-column>
+    <p-column sortable="true" field="author.firstname" header="Author"></p-column>
     <p-column sortable="true" field="category" header="Category"></p-column>
 </p-dataTable>
 </div>
