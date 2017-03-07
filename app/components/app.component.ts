@@ -16,7 +16,8 @@ export class AppComponent  implements OnInit{
     private urlRef:String = "http://localhost:8080/Librarian-1.0/ws/";
     public selectedAuthor: String;
     public referenceToFind: String;
-
+    public referenceToDelete: String;
+    public authorListb = [];
     public book: Book;
     public newBook: Book;
     public bookList: Array<Book>;
@@ -36,19 +37,30 @@ export class AppComponent  implements OnInit{
     this.authorList = new Array<Author>();
     this.author = new Author();
     this.newAuthor = new Author();
+    this.authorListb= [];
+              
     }
 
     ngOnInit(){
         this.http.get(this.urlRef+"book")
               .toPromise()
               .then(response => this.bookList = response.json() as Array<Book>);
-              console.log(this.bookList);
-
+             
         this.http.get(this.urlRef+"author")
               .toPromise()
-              .then(reponse => this.authorList = reponse.json() as Array<Author>);
-              console.log(this.authorList);
+              .then(reponse => this.authorList = reponse.json() as Array<Author>)
+              .then(()=> loadAuthors(this.authorList,this.authorListb) );
+
+       function loadAuthors(test:Array<Author>,bis){
+            console.log("boucle");
+            for(let elt of test){
+                bis.push({ label: elt.firstname, value: elt.uuid});
+                console.log(elt);
+              }
+            }
     }
+
+
 
     public getBooks(bookList:Array<Book>){
     
@@ -69,6 +81,14 @@ export class AppComponent  implements OnInit{
                 JSON.stringify(this.newBook), { headers: new Headers({'Content-Type':'application/json'})})
                 .toPromise()
                 .then(() => console.log("Added !"+this.newBook));
+    }
+
+    
+    public deleteBook():void{
+
+            this.http.delete(this.urlRef+"book/"+this.referenceToDelete)
+                .toPromise()
+                .then(() => console.log("Deleted !"+this.newBook));
     }
 
 

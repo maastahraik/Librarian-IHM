@@ -19,6 +19,7 @@ var AppComponent = (function () {
     function AppComponent(http) {
         this.http = http;
         this.urlRef = "http://localhost:8080/Librarian-1.0/ws/";
+        this.authorListb = [];
         this.bookList = new Array();
         this.booksFound = new Array();
         this.book = new book_1.Book();
@@ -26,17 +27,25 @@ var AppComponent = (function () {
         this.authorList = new Array();
         this.author = new author_1.Author();
         this.newAuthor = new author_1.Author();
+        this.authorListb = [];
     }
     AppComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.http.get(this.urlRef + "book")
             .toPromise()
             .then(function (response) { return _this.bookList = response.json(); });
-        console.log(this.bookList);
         this.http.get(this.urlRef + "author")
             .toPromise()
-            .then(function (reponse) { return _this.authorList = reponse.json(); });
-        console.log(this.authorList);
+            .then(function (reponse) { return _this.authorList = reponse.json(); })
+            .then(function () { return loadAuthors(_this.authorList, _this.authorListb); });
+        function loadAuthors(test, bis) {
+            console.log("boucle");
+            for (var _i = 0, test_1 = test; _i < test_1.length; _i++) {
+                var elt = test_1[_i];
+                bis.push({ label: elt.firstname, value: elt.uuid });
+                console.log(elt);
+            }
+        }
     };
     AppComponent.prototype.getBooks = function (bookList) {
         this.http.get(this.urlRef + "book")
@@ -53,6 +62,12 @@ var AppComponent = (function () {
         this.http.post(this.urlRef + "book", JSON.stringify(this.newBook), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) })
             .toPromise()
             .then(function () { return console.log("Added !" + _this.newBook); });
+    };
+    AppComponent.prototype.deleteBook = function () {
+        var _this = this;
+        this.http.delete(this.urlRef + "book/" + this.referenceToDelete)
+            .toPromise()
+            .then(function () { return console.log("Deleted !" + _this.newBook); });
     };
     AppComponent.prototype.getAuthors = function (authorList) {
         this.http.get(this.urlRef + "author")

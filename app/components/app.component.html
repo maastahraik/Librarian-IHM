@@ -1,5 +1,4 @@
 <div>
-    <p-dropdown [options]="authorList" [(ngModel)]="author" placeholder="Author" [style]="{'width':'150px'}"></p-dropdown>
 
 
 
@@ -42,6 +41,13 @@
     <form>
         <input type="text" [(ngModel)]="referenceToFind" name="referenceToFind"/>
         <button (click)="getBook()" pButton type="button" label="Search" class="ui-button-secondary"></button>
+    </form><hr>
+    
+    <h1>Book delete</h1>
+
+    <form>
+        <input type="text" [(ngModel)]="referenceToDelete" name="referenceToDelete"/>
+        <button (click)="deleteBook()" pButton type="button" label="Search" class="ui-button-secondary"></button>
     </form>
 
 
@@ -58,7 +64,9 @@
         </div>
         <div class="form-group">
             <label for="author" id="author">Author</label>
-            <input type="text"  [(ngModel)]="newBook.authorReference" name="authorReference" placeholder="AuthorReference" pInputText  class="form-control"/>
+            <!--<input type="text"  [(ngModel)]="newBook.authorReference" name="authorReference" placeholder="AuthorReference" pInputText  class="form-control"/>-->
+            
+    <p-dropdown [options]="authorListb" [(ngModel)]="newBook.authorReference" placeholder="Author" [style]="{'width':'150px'}" name="authorReference"></p-dropdown>
         </div>
         <div class="form-group">
             <label for="year" id="year">Year</label>
