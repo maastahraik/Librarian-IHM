@@ -1,6 +1,6 @@
 <div>
 
-
+<p-growl [value]="msgs"></p-growl>
 
 
     <p-dropdown [options]="cars" [(ngModel)]="selectedCar" [style]="{'width':'150px'}">
@@ -18,12 +18,12 @@
     <h1>Add Author</h1>
     <form>    
         <div class="form-group">
-            <label for="firstname"  id="firstname">First name</label>
-            <input type="text" [(ngModel)]="newAuthor.firstname" name="firstname"/>
+            <label for="firstName"  id="firstName">First name</label>
+            <input type="text" [(ngModel)]="newAuthor.firstName" name="firstName"/>
         </div>   
         <div class="form-group">
-            <label for="lastname"  id="lastname">Last name</label>
-            <input type="text" [(ngModel)]="newAuthor.lastname" name="lastname"/>
+            <label for="lastName"  id="lastName">Last name</label>
+            <input type="text" [(ngModel)]="newAuthor.lastName" name="lastName"/>
         </div>   
         <div class="form-group">
             <label for="nation"  id="nation">Nation</label>
@@ -46,8 +46,8 @@
     <h1>Book delete</h1>
 
     <form>
-        <input type="text" [(ngModel)]="referenceToDelete" name="referenceToDelete"/>
-        <button (click)="deleteBook()" pButton type="button" label="Search" class="ui-button-secondary"></button>
+        <input type="text" [(ngModel)]="referenceToDelete" name="referenceToDelete" placeholder="Book ISBN to delete ..."/>
+        <button (click)="deleteBook()" pButton type="button" label="Delete" class="ui-button-secondary"></button>
     </form>
 
 
@@ -86,8 +86,8 @@
 
 <p-dataTable [value]="authorList" [resizableColumns]="true">
     <p-column sortable="true" field="uuid" header="Identifier"></p-column>
-    <p-column sortable="true" field="firstname" header="First Name"></p-column>
-    <p-column sortable="true" field="lastname" header="Last Name"></p-column>
+    <p-column sortable="true" field="firstName" header="First Name"></p-column>
+    <p-column sortable="true" field="lastName" header="Last Name"></p-column>
     <p-column sortable="true" field="nation" header="Nation"></p-column>
     <p-column sortable="true" field="alive" header="Alive"></p-column>
 </p-dataTable>
@@ -99,7 +99,7 @@
 <p-dataTable [value]="bookList" [resizableColumns]="true">
     <p-column sortable="true" field="isbn" header="ISBN"></p-column>
     <p-column sortable="true" field="title" header="Title"></p-column>
-    <p-column sortable="true" field="author.firstname" header="Author"></p-column>
+    <p-column sortable="true" field="author.firstName" header="Author"></p-column>
     <p-column sortable="true" field="category" header="Category"></p-column>
 </p-dataTable>
 </div>

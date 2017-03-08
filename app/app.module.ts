@@ -7,7 +7,7 @@ import { BookComponent } from './components/book/book.component';
 import { MenuLibrarianComponent } from './components/menu/menu.component';
 import { MenuModule, DropdownModule, SpinnerModule, 
         InputTextModule, InputMaskModule, ButtonModule,
-        DataTableModule, InputSwitchModule } from 'primeng/primeng';
+        DataTableModule, InputSwitchModule, GrowlModule } from 'primeng/primeng';
 import { RouterModule } from'@angular/router';
 import { BookAddComponent } from './components/book/bookAdd.component';
 
@@ -15,7 +15,8 @@ import { BookAddComponent } from './components/book/bookAdd.component';
     imports:[BrowserModule, MenuModule, DropdownModule,
             SpinnerModule, InputTextModule, InputMaskModule,
             ButtonModule, HttpModule, FormsModule,
-            DataTableModule, InputSwitchModule, RouterModule.forRoot([
+            DataTableModule, InputSwitchModule, GrowlModule,
+            RouterModule.forRoot([
             {
                 path:'book',
                 component:BookComponent

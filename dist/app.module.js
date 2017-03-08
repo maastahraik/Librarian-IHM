@@ -26,7 +26,8 @@ AppModule = __decorate([
         imports: [platform_browser_1.BrowserModule, primeng_1.MenuModule, primeng_1.DropdownModule,
             primeng_1.SpinnerModule, primeng_1.InputTextModule, primeng_1.InputMaskModule,
             primeng_1.ButtonModule, http_1.HttpModule, forms_1.FormsModule,
-            primeng_1.DataTableModule, primeng_1.InputSwitchModule, router_1.RouterModule.forRoot([
+            primeng_1.DataTableModule, primeng_1.InputSwitchModule, primeng_1.GrowlModule,
+            router_1.RouterModule.forRoot([
                 {
                     path: 'book',
                     component: book_component_1.BookComponent
