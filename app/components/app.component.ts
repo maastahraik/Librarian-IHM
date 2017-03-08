@@ -2,7 +2,7 @@ import { Component, OnInit } from'@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Book } from '../domain/book';
 import { Author } from '../domain/author';
-import {Message} from 'primeng/primeng';
+import { Message } from 'primeng/primeng';
 
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
@@ -69,6 +69,17 @@ export class AppComponent  implements OnInit{
 
 
 
+    
+    public addBook():void{
+
+            this.http.post(this.urlRef+"book", 
+                JSON.stringify(this.newBook), { headers: new Headers({'Content-Type':'application/json'})})
+                .toPromise()
+                .then(() => this.msgs.push({severity:'success', summary:'Book added !', detail:this.newBook.title.toString()}))
+                .catch(() => this.msgs.push({severity:'error', summary:'Error !', detail:'Book can not be added.'})
+                );
+    }
+
     public getBooks(bookList:Array<Book>){
     
         this.http.get(this.urlRef+"book")
@@ -79,16 +90,6 @@ export class AppComponent  implements OnInit{
     public getBook(booksFound:Array<Book>){
         this.http.get(this.urlRef+"book/"+this.referenceToFind)
         .toPromise().then(response => booksFound = response.json() as Array<Book>);
-    }
-
-    public addBook():void{
-
-            this.http.post(this.urlRef+"book", 
-                JSON.stringify(this.newBook), { headers: new Headers({'Content-Type':'application/json'})})
-                .toPromise()
-                .then(() => this.msgs.push({severity:'success', summary:'Book added !', detail:this.newBook.title.toString()}))
-                .catch(() => this.msgs.push({severity:'error', summary:'Error !', detail:'Book can not be added.'})
-                );
     }
 
     

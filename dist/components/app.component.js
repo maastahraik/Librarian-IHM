@@ -54,6 +54,13 @@ var AppComponent = (function () {
             }
         }
     };
+    AppComponent.prototype.addBook = function () {
+        var _this = this;
+        this.http.post(this.urlRef + "book", JSON.stringify(this.newBook), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) })
+            .toPromise()
+            .then(function () { return _this.msgs.push({ severity: 'success', summary: 'Book added !', detail: _this.newBook.title.toString() }); })
+            .catch(function () { return _this.msgs.push({ severity: 'error', summary: 'Error !', detail: 'Book can not be added.' }); });
+    };
     AppComponent.prototype.getBooks = function (bookList) {
         this.http.get(this.urlRef + "book")
             .toPromise()
@@ -62,13 +69,6 @@ var AppComponent = (function () {
     AppComponent.prototype.getBook = function (booksFound) {
         this.http.get(this.urlRef + "book/" + this.referenceToFind)
             .toPromise().then(function (response) { return booksFound = response.json(); });
-    };
-    AppComponent.prototype.addBook = function () {
-        var _this = this;
-        this.http.post(this.urlRef + "book", JSON.stringify(this.newBook), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) })
-            .toPromise()
-            .then(function () { return _this.msgs.push({ severity: 'success', summary: 'Book added !', detail: _this.newBook.title.toString() }); })
-            .catch(function () { return _this.msgs.push({ severity: 'error', summary: 'Error !', detail: 'Book can not be added.' }); });
     };
     AppComponent.prototype.deleteBook = function () {
         var _this = this;
